@@ -68,4 +68,5 @@ resource "alicloud_snat_entry" "this" {
   snat_table_id     = concat(alicloud_nat_gateway.this.*.snat_table_ids, [""])[0]
   source_vswitch_id = length(var.vswitch_cidrs) > 0 ? concat([module.vpc.this_vswitch_ids[count.index]], [""])[0] : ""
   snat_ip           = concat(alicloud_eip.this.*.ip_address, [""])[0]
+  depends_on        = [alicloud_eip_association.this]
 }
