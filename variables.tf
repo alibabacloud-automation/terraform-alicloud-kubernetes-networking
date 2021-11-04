@@ -137,3 +137,9 @@ variable "eip_period" {
   type        = number
   default     = 1
 }
+
+variable "nat_type" {
+  description = "The type of NAT gateway. "
+  type        = string
+  default     = "Enhanced"
+}

@@ -39,7 +39,8 @@ resource "alicloud_nat_gateway" "this" {
   specification        = var.nat_specification
   instance_charge_type = var.nat_instance_charge_type
   period               = var.nat_period
-
+  nat_type             = var.nat_type
+  vswitch_id           = length(var.vswitch_cidrs) > 0 ? concat([module.vpc.this_vswitch_ids[count.index]], [""])[0] : ""
 }
 
 resource "alicloud_eip" "this" {
