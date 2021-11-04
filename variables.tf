@@ -137,3 +137,9 @@ variable "eip_period" {
   type        = number
   default     = 1
 }
+
+variable "nat_type" {
+  description = "The duration that you will buy the EIP, in month."
+  type        = string
+  default     = "Enhanced"
+}
