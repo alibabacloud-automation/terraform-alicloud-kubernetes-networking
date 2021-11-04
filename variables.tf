@@ -139,7 +139,7 @@ variable "eip_period" {
 }
 
 variable "nat_type" {
-  description = "The duration that you will buy the EIP, in month."
+  description = "The type of NAT gateway. "
   type        = string
   default     = "Enhanced"
 }
