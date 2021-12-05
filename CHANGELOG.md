@@ -1,4 +1,10 @@
-## 1.2.0 (Unreleased)
+## 1.3.0 (Unreleased)
+## 1.2.0 (December 5, 2021)
+
+ENHANCEMENTS:
+
+- Removes the provider setting and improves the Readme [GH-5](https://github.com/terraform-alicloud-modules/terraform-alicloud-kubernetes-networking/pull/5)
+
 ## 1.1.0 (July 6, 2020)
 
 BUG FIXES:
