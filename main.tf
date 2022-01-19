@@ -7,37 +7,35 @@ locals {
 
 // If there is not specifying vpc_id, the module will launch a new vpc
 module "vpc" {
-  source                  = "alibaba/vpc/alicloud"
-  region                  = var.region
-  profile                 = var.profile
-  shared_credentials_file = var.shared_credentials_file
-  skip_region_validation  = var.skip_region_validation
-  create                  = var.create
-  vpc_id                  = var.existing_vpc_id
-  vpc_name                = local.vpc_name
-  vpc_cidr                = var.vpc_cidr
-  vpc_tags                = var.vpc_tags
-  availability_zones      = var.availability_zones
-  vswitch_cidrs           = var.vswitch_cidrs
-  vswitch_name            = local.vswitch_name
-  vswitch_tags            = var.vswitch_tags
+  source             = "alibaba/vpc/alicloud"
+  create             = var.create
+  vpc_id             = var.existing_vpc_id
+  vpc_name           = local.vpc_name
+  vpc_cidr           = var.vpc_cidr
+  vpc_tags           = var.vpc_tags
+  availability_zones = var.availability_zones
+  vswitch_cidrs      = var.vswitch_cidrs
+  vswitch_name       = local.vswitch_name
+  vswitch_tags       = var.vswitch_tags
 }
 
 resource "alicloud_nat_gateway" "this" {
   count                = var.create ? 1 : 0
   vpc_id               = module.vpc.this_vpc_id
-  name                 = local.nat_gateway_name
+  vswitch_id           = module.vpc.this_vswitch_ids[0]
+  nat_gateway_name     = local.nat_gateway_name
   specification        = var.nat_specification
-  instance_charge_type = var.nat_instance_charge_type
+  payment_type         = var.nat_payment_type != "" ? var.nat_payment_type : var.nat_instance_charge_type == "PostPaid" ? "PayAsYouGo" : "Subscription"
   period               = var.nat_period
-
+  internet_charge_type = var.nat_internet_charge_type
+  nat_type             = var.nat_type
 }
 
 resource "alicloud_eip" "this" {
   count                = var.create ? 1 : 0
-  name                 = local.eip_name
+  address_name         = local.eip_name
   bandwidth            = var.eip_bandwidth
-  instance_charge_type = var.eip_instance_charge_type
+  payment_type         = var.eip_payment_type != "" ? var.eip_payment_type : var.eip_instance_charge_type == "PostPaid" ? "PayAsYouGo" : "Subscription"
   internet_charge_type = var.eip_internet_charge_type
   period               = var.eip_period
   tags = merge(

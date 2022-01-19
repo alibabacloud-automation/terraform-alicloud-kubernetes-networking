@@ -45,7 +45,7 @@ output "this_nat_gateway_id" {
 
 output "this_nat_gateway_name" {
   description = "The name of the nat gateway."
-  value       = concat(alicloud_nat_gateway.this.*.name, [""])[0]
+  value       = concat(alicloud_nat_gateway.this.*.nat_gateway_name, [""])[0]
 }
 output "this_nat_gateway_spec" {
   description = "The nat gateway spec."
