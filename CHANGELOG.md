@@ -1,4 +1,8 @@
-## 1.3.0 (Unreleased)
+## 1.4.0 (Unreleased)
+## 1.3.0 (August 28, 2024)
+
+- module: improve output.tf [GH-7](https://github.com/alibabacloud-automation/terraform-alicloud-kubernetes-networking/pull/7)
+
 ## 1.2.0 (December 5, 2021)
 
 ENHANCEMENTS:
