@@ -59,7 +59,7 @@ output "this_eip_id" {
 
 output "this_eip_name" {
   description = "The name of new eip."
-  value       = concat(alicloud_eip.this.*.name, [""])[0]
+  value       = concat(alicloud_eip.this.*.address_name, [""])[0]
 }
 
 output "this_eip_ip" {
