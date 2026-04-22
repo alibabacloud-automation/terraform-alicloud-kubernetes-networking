@@ -5,9 +5,11 @@ locals {
   eip_name         = var.eip_name == "" ? "tf-k8s-networking-module-eip" : var.eip_name
 }
 
-// If there is not specifying vpc_id, the module will launch a new vpc
+# If there is not specifying vpc_id, the module will launch a new vpc
 module "vpc" {
-  source             = "alibaba/vpc/alicloud"
+  source  = "alibaba/vpc/alicloud"
+  version = "2.0.0"
+
   create             = var.create
   vpc_id             = var.existing_vpc_id
   vpc_name           = local.vpc_name
@@ -48,14 +50,14 @@ resource "alicloud_eip" "this" {
 
 resource "alicloud_eip_association" "this" {
   count         = var.create ? 1 : 0
-  allocation_id = concat(alicloud_eip.this.*.id, [""])[0]
-  instance_id   = concat(alicloud_nat_gateway.this.*.id, [""])[0]
+  allocation_id = concat(alicloud_eip.this[*].id, [""])[0]
+  instance_id   = concat(alicloud_nat_gateway.this[*].id, [""])[0]
 }
 
 resource "alicloud_snat_entry" "this" {
   count             = var.create ? length(var.vswitch_cidrs) : 0
-  snat_table_id     = concat(alicloud_nat_gateway.this.*.snat_table_ids, [""])[0]
+  snat_table_id     = concat(alicloud_nat_gateway.this[*].snat_table_ids, [""])[0]
   source_vswitch_id = length(var.vswitch_cidrs) > 0 ? concat([module.vpc.this_vswitch_ids[count.index]], [""])[0] : ""
-  snat_ip           = concat(alicloud_eip.this.*.ip_address, [""])[0]
+  snat_ip           = concat(alicloud_eip.this[*].ip_address, [""])[0]
   depends_on        = [alicloud_eip_association.this]
 }

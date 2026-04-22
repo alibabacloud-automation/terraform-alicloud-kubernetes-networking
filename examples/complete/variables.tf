@@ -28,7 +28,7 @@ variable "vswitch_tags" {
   }
 }
 
-// Nat gatway variables
+# Nat gatway variables
 variable "nat_gateway_name" {
   description = "The name prefix used to launch the nat gateway. "
   type        = string
@@ -53,7 +53,7 @@ variable "nat_type" {
   default     = "Enhanced"
 }
 
-// eip variables
+# eip variables
 variable "eip_name" {
   description = "The name prefix used to launch the eip. "
   type        = string

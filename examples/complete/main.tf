@@ -1,7 +1,7 @@
 data "alicloud_zones" "default" {
 }
 
-// kubernetes networking Module
+# kubernetes networking Module
 module "k8s_networking" {
   source = "../../"
 

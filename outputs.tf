@@ -40,34 +40,34 @@ output "this_vswitch_cidr_blocks" {
 
 output "this_nat_gateway_id" {
   description = "The ID of the nat gateway."
-  value       = concat(alicloud_nat_gateway.this.*.id, [""])[0]
+  value       = concat(alicloud_nat_gateway.this[*].id, [""])[0]
 }
 
 output "this_nat_gateway_name" {
   description = "The name of the nat gateway."
-  value       = concat(alicloud_nat_gateway.this.*.nat_gateway_name, [""])[0]
+  value       = concat(alicloud_nat_gateway.this[*].nat_gateway_name, [""])[0]
 }
 output "this_nat_gateway_spec" {
   description = "The nat gateway spec."
-  value       = concat(alicloud_nat_gateway.this.*.spec, [""])[0]
+  value       = concat(alicloud_nat_gateway.this[*].spec, [""])[0]
 }
 
 output "this_eip_id" {
   description = "The id of new eip."
-  value       = concat(alicloud_eip.this.*.id, [""])[0]
+  value       = concat(alicloud_eip.this[*].id, [""])[0]
 }
 
 output "this_eip_name" {
   description = "The name of new eip."
-  value       = concat(alicloud_eip.this.*.address_name, [""])[0]
+  value       = concat(alicloud_eip.this[*].address_name, [""])[0]
 }
 
 output "this_eip_ip" {
   description = "The ip address of new eip."
-  value       = concat(alicloud_eip.this.*.ip_address, [""])[0]
+  value       = concat(alicloud_eip.this[*].ip_address, [""])[0]
 }
 
 output "this_eip_tags" {
   description = "The tags of new eip."
-  value       = concat(alicloud_eip.this.*.tags, [{}])[0]
+  value       = concat(alicloud_eip.this[*].tags, [{}])[0]
 }
